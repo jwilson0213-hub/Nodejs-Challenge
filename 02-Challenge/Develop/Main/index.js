@@ -2,7 +2,7 @@
 import fs from 'fs';
 import inquirer from 'inquirer';
 import path from 'path';
-import {generateMarkdown} from '../utils/generateMarkdown.js';
+import generateMarkdown from './utils/generateMarkdown.js';
 
 // TODO: Create an array of questions for user input
 
@@ -51,7 +51,7 @@ const questions = [
     {
         type: 'input',
         name: 'gitHub',
-        message: 'Enter your GitHub user name.'
+        message: 'Enter your GitHub user name.',
     },
     {
         type: 'input',
@@ -60,7 +60,7 @@ const questions = [
     },
     {
         type: 'input',
-        name: 'test-instructions',
+        name: 'test',
         message: 'Do you have any test instructions?',
     },
 ];
