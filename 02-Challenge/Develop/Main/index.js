@@ -1,8 +1,8 @@
 // TODO: Include packages needed for this application
 import fs from 'fs';
 import inquirer from 'inquirer';
-const path = require("path");
-const generateMarkdown = require("./utils/generateMarkdown");
+import path from 'path';
+import {generateMarkdown} from '../utils/generateMarkdown.js';
 
 // TODO: Create an array of questions for user input
 
@@ -52,7 +52,7 @@ const questions = [
         type: 'input',
         name: 'gitHub',
         message: 'Enter your GitHub user name.'
-    }
+    },
     {
         type: 'input',
         name: 'contribution',
@@ -62,18 +62,20 @@ const questions = [
         type: 'input',
         name: 'test-instructions',
         message: 'Do you have any test instructions?',
-    }
+    },
 ];
 // TODO: Create a function to write README file
 function writeToFile(fileName, data) {
-   fs.writeFile(path.join(process.cwd(), fileName),data);
+   fs.writeFileSync(path.join(process.cwd(), fileName),data);
 }
 // TODO: Create a function to initialize app
 function init() {
-    inquirer.prompt(questions).then((responses) => {
-
+    inquirer.prompt(questions).then((answers) => {
+        const markdown = generateMarkdown(answers);
+        writeToFile("README.md", markdown);
         console.log("Making Professional README.md file");
-        writeToFile("./dist/README.md", generateMarkdown({ ...responses}));
+    }).catch((error) => {
+        console.error('Error:', error);
     });
 }
 
